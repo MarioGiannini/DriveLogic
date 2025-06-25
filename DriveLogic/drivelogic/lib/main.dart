@@ -1,0 +1,408 @@
+import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'mg64_bluetooth.dart';
+import 'app_data.dart';
+import 'app_ui.dart';
+import 'layout_gauges.dart';
+import 'layout_dark.dart';
+import 'layout_embedded_map.dart';
+import 'layout_debug.dart';
+
+void main() {
+  runApp(const MyApp());
+}
+
+class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    SystemChrome.setPreferredOrientations([
+      DeviceOrientation.landscapeLeft,
+      DeviceOrientation.landscapeRight,
+    ]);
+
+
+    TextTheme textTheme = Theme.of(context).textTheme;
+    largerBodyFontSize = (textTheme.bodyLarge?.fontSize ?? 16) * bodyFontFactor;
+    smallBodyFontSize = (textTheme.bodyLarge?.fontSize ?? 12);
+    sysFontSizeDigitalGauge = largerBodyFontSize;
+
+    return MaterialApp(
+      title: 'Drive Logic',
+      debugShowCheckedModeBanner: false,
+      theme: ThemeData(
+        scaffoldBackgroundColor: sysBackgroundColor,
+        colorScheme: ColorScheme.fromSeed(seedColor: sysTextColor),
+        useMaterial3: true,
+        textTheme:  Theme.of(context).textTheme.apply(
+          bodyColor: sysTextColor,
+          displayColor: sysTextColor,
+        ),
+
+          inputDecorationTheme: const InputDecorationTheme(
+              focusColor: Colors.green,
+              focusedBorder: OutlineInputBorder( borderSide: BorderSide( color: sysTextFieldBorderColor )),
+              border: OutlineInputBorder( ))
+      ),
+
+      home: const MyHomePage(title: 'Drive Logic'),
+    );
+  }
+}
+
+class MyHomePage extends StatefulWidget {
+  const MyHomePage({super.key, required this.title});
+  final String title;
+
+  @override
+  State<MyHomePage> createState() => _MyHomePageState();
+}
+
+class _MyHomePageState extends State<MyHomePage> {
+  MG64Bluetooth bt = MG64Bluetooth();
+
+  //late Future<void> btInitFuture;
+  String read = '';
+  String errorMessage = '';
+  int nextBogusSend = DateTime.now().millisecondsSinceEpoch + 500;
+  int lastBogusSend=0;
+
+  //GlobalKey<ScaffoldState> _drawerKey = GlobalKey();
+
+  void onBlueToothNotify(MG64Bluetooth bt, MG64BluetoothNotify note) {
+    if (note == MG64BluetoothNotify.dataReceived) {
+      String s = bt.readBlockString();
+      if (s
+          .trim()
+          .isNotEmpty) {
+        if (s.contains("PROVIDED:\n")) // Check for special responses
+            {
+          // The PROVIDED command has a special format with more data: label,cur,min,max,warnlo,warnhigh,type,decimals,dir
+          s = s.replaceAll("PROVIDED:\n", "");
+
+          final startIndex = s.indexOf( 'Version:');
+          if (startIndex != -1)
+          {
+            final endIndex = s.indexOf( "\n", startIndex + 8);
+            if (endIndex != -1) {
+              DLAppData.appData.deviceVersion = s.substring(startIndex + 8, endIndex);
+              s = s.substring(endIndex + 1);
+            }
+          }
+          DLAppData.appData.setupDatapoints( s );
+          DLAppData.appData.renewAccepted = true;
+        }
+        else { // Otherwise, assume they are datapoints, and process.
+          int now = DateTime.now().millisecondsSinceEpoch;
+          if( nextBogusSend < now ) {
+            // workaround from https://issuetracker.google.com/issues/36990183
+            bt.writeString("<<WORKAROUND>>").whenComplete( () {
+              lastBogusSend = DateTime.now().millisecondsSinceEpoch;
+            } );
+            nextBogusSend = now+500;
+          }
+
+          if( DLAppData.appData.inSettings  ) {
+            return; // Do not pass Go, do not collect $200
+          }
+          DLAppData.appData.parseValue(s);
+        }
+      }
+      if( DLAppData.appData.renewAccepted ) {
+        sendAccepted();
+        setState(() {});
+      }
+    } else if (note == MG64BluetoothNotify.connected) {
+      sendSettings();
+      bt.writeString("<<IDENTIFY>>");
+      setState(() {});
+    } else if (note == MG64BluetoothNotify.disconnected) {
+      errorMessage = 'Disconnected';
+      setState(() {});
+    } else if (note == MG64BluetoothNotify.error) {
+      errorMessage = bt.error;
+      setState(() {});
+    }
+
+    setState(() {});
+  }
+
+  void initBlueTooth(MG64BluetoothDevice? lastConnectedDevice) {
+    DLAppData.appData.bt = bt;
+    bt.init(false, 'DriveLogic', onBlueToothNotify, lastConnectedDevice)
+        .whenComplete(() {
+      // TODO: If there's only one device, connect automatically.
+      DLAppData.appData.logIt( 'initBlueTooth lastConnected ${lastConnectedDevice?.name} - ${lastConnectedDevice?.address}');
+      setState(() {});
+    }).catchError((e) {
+      errorMessage = 'Exception: $e';
+      DLAppData.appData.logIt( 'initBlueTooth $errorMessage');
+      setState(() {});
+    });
+  }
+
+  @override
+  void initState() {
+
+    DLAppData.appData.init().whenComplete(() {
+      initBlueTooth(DLAppData.appData.lastConnectedDevice);
+    });
+    super.initState();
+  }
+
+  void connect(MG64BluetoothDevice device) async {
+    DLAppData.appData.datapointsWereSetup = false;
+    //await bt.connect(device, DLAppData.appData.getBogusData  );
+    bt.connect(device, DLAppData.appData.getBogusData).whenComplete(() {
+      DLAppData.appData.lastConnectedDevice = device;
+      DLAppData.appData.store(load: false).whenComplete(() {
+        setState(() {});
+      });
+    });
+  }
+
+  Widget buildErrorBody(BuildContext context) {
+    double padding = MediaQuery.of(context).viewPadding.top;
+    List<Widget> kids = [
+      SizedBox( height: padding * 2),
+      Text(errorMessage, style: const TextStyle(
+          fontSize: 22, color: sysTextErrorColor, fontWeight: FontWeight.bold
+      )
+      )
+    ];
+
+    if( DLAppData.appData.lastConnectedDevice.address.isNotEmpty ) {
+      kids.add(ElevatedButton(
+        onPressed: () {
+          DLAppData.appData.logIt( 'Forgetting last Bluetooth device' );
+          initBlueTooth(null);
+          setState(() {
+            errorMessage='';
+          });
+        },
+        child: const Text('Forget last device'),
+      )
+      );
+      kids.add(ElevatedButton(
+        onPressed: () {
+          initBlueTooth(DLAppData.appData.lastConnectedDevice);
+          setState(() {
+            errorMessage='';
+          });
+        },
+        child: const Text('Try again'),
+      )
+      );
+    } else
+    {
+      kids.add(ElevatedButton(
+        onPressed: () {
+          initBlueTooth(null);
+        },
+        child: const Text('Search again'),
+      )
+      );
+    }
+    return Center(
+          child: Column( children: kids
+        )
+    );
+  }
+
+  Widget buildBodyTest(BuildContext context) {
+    devicePixelRatio = MediaQuery.of(context).devicePixelRatio;
+    Size logSize = MediaQuery.sizeOf(context);
+    EdgeInsets logPadding = MediaQuery.of(context).viewPadding;
+    logPaddingTop =   logPadding.top;
+
+    Widget col = Column(
+      children: [
+        SizedBox( height: logPadding.top, width: logSize.width ),
+        Image.asset( 'images/test.jpg', fit: BoxFit.cover ),
+    ]
+    );
+    return col;
+  }
+
+  Widget buildBody(BuildContext context) {
+
+    if (errorMessage.isNotEmpty) {
+      return buildErrorBody(context);
+    }
+    if( DLAppData.appData.wasCleared ) {
+      bt.writeString("<<IDENTIFY>>");
+      DLAppData.appData.wasCleared  = false;
+      setState(() {});
+    }
+
+    if (bt.isDiscovering) {
+      return  const Center(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [Text('Searching... '), CircularProgressIndicator()],
+          )
+      );
+    } else if (bt.devicesList.isEmpty && !bt.isConnected) {
+      return Column(mainAxisAlignment: MainAxisAlignment.center, children: [
+        Center(
+            child: Text(
+              'DriveLogic device not found',
+              style: TextStyle(
+                  fontWeight: FontWeight.bold, color: Colors.red, fontSize: defaultFontSize, )
+            )),
+        Center(
+          child: ElevatedButton(
+            onPressed: () {
+              initBlueTooth(null);
+            },
+            child: const Text('Search again'),
+          ),
+        )
+      ]);
+    } else if (!bt.isConnected) {
+      List<Widget> rows = <Widget>[];
+      rows.add(Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+        Text(
+          "Select device",
+          style: Theme
+              .of(context)
+              .textTheme
+              .headlineMedium,
+        ),
+      ]));
+      for (MG64BluetoothDevice device in bt.devicesList) {
+        rows.add(Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+          ElevatedButton(
+            onPressed: () {
+              connect(device);
+            },
+            child: Text("${device.name}: ${device.address}"),
+          )
+        ]));
+        return (ListView(
+          children: rows,
+        ));
+      }
+    } else {
+      // We're connected, show data
+      if (DLAppData.appData.visualLayout == "Gauges") {
+        return buildGaugesLayout(context, settingsClosed);
+      } else if (DLAppData.appData.visualLayout == "Map") {
+        return buildEmbeddedLayout( context, settingsClosed);
+      } else if (DLAppData.appData.visualLayout == "Dark") {
+        return buildDarkLayout( context, settingsClosed);
+      } else if (DLAppData.appData.visualLayout == "DEBUG") {
+        return buildDebugLayout(context, settingsClosed);
+      }
+    }
+    return (const Text("Unexpected build status"));
+  }
+
+  void sendSettings() {
+    bt.writeString("<<SETTINGS:${DLAppData.appData.joinDataFormats()}>>");
+  }
+
+  void sendAccepted()
+  {
+    String accepted = "<<ACCEPTED:", sep="";
+    String prefix = '${DLAppData.appData.visualLayout.toLowerCase()}.';
+    List<String> portions = [];
+    DLAppData.appData.elementSources.forEach( (String key, String value ) {
+      if( key.indexOf( prefix ) == 0) {
+        portions = value.split(',');
+        if( portions[0].isNotEmpty ) {
+          accepted += "$sep${portions[0].replaceAll('*', '')}";
+          sep = ",";
+        }
+      }
+    }
+    );
+
+    for ( String element in DLAppData.appData.layoutElements[ DLAppData.appData.visualLayout ]!) {
+      if( element.isNotEmpty && element[0] == '*' ) {
+        accepted += "$sep${element.replaceAll('*','')}";
+        sep = ",";
+      }
+    }
+
+    DLAppData.appData.ledStripSources.forEach( ( String key, String value ) {
+      if( key.indexOf( '${DLAppData.appData.visualLayout}.' ) == 0 ) {
+        portions = value.split(',');
+        accepted += "$sep${portions[0].toUpperCase()}";
+        sep = ",";
+      }
+    } );
+
+    if( sep.isNotEmpty ) {
+      accepted += ">>";
+      bt.writeString(accepted);
+    }
+    DLAppData.appData.renewAccepted = false;
+  }
+
+  void settingsClosed()
+  {
+    sendSettings();
+    sendAccepted();
+
+    setState(() {
+  });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    if( logHeight == 0.0 || logWidth == 0.0 ) {
+      dlScreenInit(context);
+    }
+    //double sw = MediaQuery.of(context).size.width;
+    return Scaffold(
+      key: DLAppData.appData.drawerKey,
+      body: buildBody(context),
+    );
+  }
+  void forgetLast()
+  {
+    Navigator.pop(context); // Close the drawer
+    if( bt.isConnected ) {
+      bt.disconnect();
+    }
+    DLAppData.appData.lastConnectedDevice = emptyMG64BluetoothDevice();
+    initBlueTooth( null );
+    setState(() {
+    });
+  }
+
+  showConfirmationDialog(BuildContext context,  void Function() callBack ) {
+    Widget cancelButton = ElevatedButton(
+      child: const Text("Cancel"),
+      onPressed:  () {
+        Navigator.of(context).pop();
+      },
+    );
+    Widget continueButton = ElevatedButton(
+      onPressed:  () {
+        Navigator.of(context).pop();
+        callBack();
+      },
+      child: const Text("Continue"),
+    );
+
+    AlertDialog alert = AlertDialog(
+      title: const Text("AlertDialog"),
+      content: const Text("Are you sure you want to forget the last device?"),
+      actions: [
+        cancelButton,
+        continueButton,
+      ],
+    );
+
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return alert;
+      },
+    );
+  }
+
+}

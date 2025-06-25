@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="NONE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="6be1cdc9-d2f8-48d3-8693-792f57975ef3" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/caches/deviceStreaming.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/DriveLogic.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/DriveLogic.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Dart_SDK.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Dart_SDK.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/drivelogic/flutter_bluetooth_serial/.github/ISSUE_TEMPLATE/Bugs.md" beforeDir="false" afterPath="$PROJECT_DIR$/drivelogic/flutter_bluetooth_serial/.github/ISSUE_TEMPLATE/Bugs.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/drivelogic/flutter_bluetooth_serial/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/drivelogic/flutter_bluetooth_serial/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/drivelogic/flutter_bluetooth_serial/CHANGELOG.md" beforeDir="false" afterPath="$PROJECT_DIR$/drivelogic/flutter_bluetooth_serial/CHANGELOG.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/drivelogic/flutter_bluetooth_serial/LICENSE" beforeDir="false" afterPath="$PROJECT_DIR$/drivelogic/flutter_bluetooth_serial/LICENSE" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/drivelogic/flutter_bluetooth_serial/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/drivelogic/flutter_bluetooth_serial/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/drivelogic/flutter_bluetooth_serial/android/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/drivelogic/flutter_bluetooth_serial/android/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/drivelogic/flutter_bluetooth_serial/android/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/drivelogic/flutter_bluetooth_serial/android/build.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/drivelogic/flutter_bluetooth_serial/android/gradle.properties" beforeDir="false" afterPath="$PROJECT_DIR$/drivelogic/flutter_bluetooth_serial/android/gradle.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/drivelogic/flutter_bluetooth_serial/android/gradle/wrapper/gradle-wrapper.properties" beforeDir="false" afterPath="$PROJECT_DIR$/drivelogic/flutter_bluetooth_serial/android/gradle/wrapper/gradle-wrapper.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/drivelogic/flutter_bluetooth_serial/android/settings.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/drivelogic/flutter_bluetooth_serial/android/settings.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/drivelogic/flutter_bluetooth_serial/android/src/main/AndroidManifest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/drivelogic/flutter_bluetooth_serial/android/src/main/AndroidManifest.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/drivelogic/flutter_bluetooth_serial/android/src/main/java/io/github/edufolly/flutterbluetoothserial/BluetoothConnection.java" beforeDir="false" afterPath="$PROJECT_DIR$/drivelogic/flutter_bluetooth_serial/android/src/main/java/io/github/edufolly/flutterbluetoothserial/BluetoothConnection.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/drivelogic/flutter_bluetooth_serial/android/src/main/java/io/github/edufolly/flutterbluetoothserial/FlutterBluetoothSerialPlugin.java" beforeDir="false" afterPath="$PROJECT_DIR$/drivelogic/flutter_bluetooth_serial/android/src/main/java/io/github/edufolly/flutterbluetoothserial/FlutterBluetoothSerialPlugin.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/drivelogic/flutter_bluetooth_serial/ios/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/drivelogic/flutter_bluetooth_serial/ios/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/drivelogic/flutter_bluetooth_serial/ios/Classes/FlutterBluetoothSerialPlugin.h" beforeDir="false" afterPath="$PROJECT_DIR$/drivelogic/flutter_bluetooth_serial/ios/Classes/FlutterBluetoothSerialPlugin.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/drivelogic/flutter_bluetooth_serial/ios/Classes/FlutterBluetoothSerialPlugin.m" beforeDir="false" afterPath="$PROJECT_DIR$/drivelogic/flutter_bluetooth_serial/ios/Classes/FlutterBluetoothSerialPlugin.m" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/drivelogic/flutter_bluetooth_serial/ios/flutter_bluetooth_serial.podspec" beforeDir="false" afterPath="$PROJECT_DIR$/drivelogic/flutter_bluetooth_serial/ios/flutter_bluetooth_serial.podspec" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/drivelogic/flutter_bluetooth_serial/lib/BluetoothBondState.dart" beforeDir="false" afterPath="$PROJECT_DIR$/drivelogic/flutter_bluetooth_serial/lib/BluetoothBondState.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/drivelogic/flutter_bluetooth_serial/lib/BluetoothConnection.dart" beforeDir="false" afterPath="$PROJECT_DIR$/drivelogic/flutter_bluetooth_serial/lib/BluetoothConnection.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/drivelogic/flutter_bluetooth_serial/lib/BluetoothDevice.dart" beforeDir="false" afterPath="$PROJECT_DIR$/drivelogic/flutter_bluetooth_serial/lib/BluetoothDevice.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/drivelogic/flutter_bluetooth_serial/lib/BluetoothDeviceType.dart" beforeDir="false" afterPath="$PROJECT_DIR$/drivelogic/flutter_bluetooth_serial/lib/BluetoothDeviceType.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/drivelogic/flutter_bluetooth_serial/lib/BluetoothDiscoveryResult.dart" beforeDir="false" afterPath="$PROJECT_DIR$/drivelogic/flutter_bluetooth_serial/lib/BluetoothDiscoveryResult.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/drivelogic/flutter_bluetooth_serial/lib/BluetoothPairingRequest.dart" beforeDir="false" afterPath="$PROJECT_DIR$/drivelogic/flutter_bluetooth_serial/lib/BluetoothPairingRequest.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/drivelogic/flutter_bluetooth_serial/lib/BluetoothState.dart" beforeDir="false" afterPath="$PROJECT_DIR$/drivelogic/flutter_bluetooth_serial/lib/BluetoothState.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/drivelogic/flutter_bluetooth_serial/lib/FlutterBluetoothSerial.dart" beforeDir="false" afterPath="$PROJECT_DIR$/drivelogic/flutter_bluetooth_serial/lib/FlutterBluetoothSerial.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/drivelogic/flutter_bluetooth_serial/lib/flutter_bluetooth_serial.dart" beforeDir="false" afterPath="$PROJECT_DIR$/drivelogic/flutter_bluetooth_serial/lib/flutter_bluetooth_serial.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/drivelogic/flutter_bluetooth_serial/pubspec.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/drivelogic/flutter_bluetooth_serial/pubspec.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/drivelogic/images/LayoutPreviewOffRoad.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/drivelogic/images/LayoutPreviewOffRoad.jpg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/drivelogic/lib/about.dart" beforeDir="false" afterPath="$PROJECT_DIR$/drivelogic/lib/about.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/drivelogic/lib/app_data.dart" beforeDir="false" afterPath="$PROJECT_DIR$/drivelogic/lib/app_data.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/drivelogic/lib/app_ui.dart" beforeDir="false" afterPath="$PROJECT_DIR$/drivelogic/lib/app_ui.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/drivelogic/lib/dlarc.dart" beforeDir="false" afterPath="$PROJECT_DIR$/drivelogic/lib/dlarc.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/drivelogic/lib/layout_debug.dart" beforeDir="false" afterPath="$PROJECT_DIR$/drivelogic/lib/layout_debug.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/drivelogic/lib/layout_digitals.dart" beforeDir="false" afterPath="$PROJECT_DIR$/drivelogic/lib/layout_digitals.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/drivelogic/lib/layout_embedded_map.dart" beforeDir="false" afterPath="$PROJECT_DIR$/drivelogic/lib/layout_embedded_map.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/drivelogic/lib/layout_gauges.dart" beforeDir="false" afterPath="$PROJECT_DIR$/drivelogic/lib/layout_gauges.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/drivelogic/lib/layout_offroad.dart" beforeDir="false" afterPath="$PROJECT_DIR$/drivelogic/lib/layout_offroad.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/drivelogic/lib/main.dart" beforeDir="false" afterPath="$PROJECT_DIR$/drivelogic/lib/main.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/drivelogic/lib/mg64_bluetooth.dart" beforeDir="false" afterPath="$PROJECT_DIR$/drivelogic/lib/mg64_bluetooth.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/drivelogic/lib/settings_general.dart" beforeDir="false" afterPath="$PROJECT_DIR$/drivelogic/lib/settings_general.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/drivelogic/lib/settings_main.dart" beforeDir="false" afterPath="$PROJECT_DIR$/drivelogic/lib/settings_main.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/drivelogic/lib/settings_sensors.dart" beforeDir="false" afterPath="$PROJECT_DIR$/drivelogic/lib/settings_sensors.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/drivelogic/lib/settings_visual.dart" beforeDir="false" afterPath="$PROJECT_DIR$/drivelogic/lib/settings_visual.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/drivelogic/lib/source_editor.dart" beforeDir="false" afterPath="$PROJECT_DIR$/drivelogic/lib/source_editor.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/drivelogic/linux/flutter/generated_plugin_registrant.cc" beforeDir="false" afterPath="$PROJECT_DIR$/drivelogic/linux/flutter/generated_plugin_registrant.cc" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/drivelogic/linux/flutter/generated_plugin_registrant.h" beforeDir="false" afterPath="$PROJECT_DIR$/drivelogic/linux/flutter/generated_plugin_registrant.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/drivelogic/linux/flutter/generated_plugins.cmake" beforeDir="false" afterPath="$PROJECT_DIR$/drivelogic/linux/flutter/generated_plugins.cmake" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/drivelogic/macos/Flutter/GeneratedPluginRegistrant.swift" beforeDir="false" afterPath="$PROJECT_DIR$/drivelogic/macos/Flutter/GeneratedPluginRegistrant.swift" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/drivelogic/pubspec.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/drivelogic/pubspec.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/drivelogic/windows/flutter/generated_plugin_registrant.cc" beforeDir="false" afterPath="$PROJECT_DIR$/drivelogic/windows/flutter/generated_plugin_registrant.cc" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/drivelogic/windows/flutter/generated_plugin_registrant.h" beforeDir="false" afterPath="$PROJECT_DIR$/drivelogic/windows/flutter/generated_plugin_registrant.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/drivelogic/windows/flutter/generated_plugins.cmake" beforeDir="false" afterPath="$PROJECT_DIR$/drivelogic/windows/flutter/generated_plugins.cmake" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TPEngineMonitorClassic/tpenginemonitorclassic/tpenginemonitorclassic.ino" beforeDir="false" afterPath="$PROJECT_DIR$/../TPEngineMonitorClassic/tpenginemonitorclassic/tpenginemonitorclassic.ino" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ClangdSettings">
+    <option name="formatViaClangd" value="false" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;customColor&quot;: &quot;&quot;,
+  &quot;associatedIndex&quot;: 5
+}</component>
+  <component name="ProjectId" id="2wMF7YzN0CEL5AdIcw1xVFguuxG" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Flutter.main.dart.executor": "Debug",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.cidr.known.project.marker": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "RunOnceActivity.readMode.enableVisualFormatting": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "cf.first.check.clang-format": "false",
+    "cidr.known.project.marker": "true",
+    "dart.analysis.tool.window.visible": "false",
+    "git-widget-placeholder": "main",
+    "io.flutter.reload.alreadyRun": "true",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "D:/GitHub/DriveLogic/DriveLogic",
+    "settings.editor.selected.configurable": "AndroidSdkUpdater",
+    "show.migrate.to.gradle.popup": "false"
+  }
+}]]></component>
+  <component name="RunManager">
+    <configuration name="main.dart" type="FlutterRunConfigurationType" factoryName="Flutter">
+      <option name="filePath" value="$PROJECT_DIR$/drivelogic/lib/main.dart" />
+      <method v="2" />
+    </configuration>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="6be1cdc9-d2f8-48d3-8693-792f57975ef3" name="Changes" comment="" />
+      <created>1745843368206</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1745843368206</updated>
+    </task>
+    <servers />
+  </component>
+</project>
