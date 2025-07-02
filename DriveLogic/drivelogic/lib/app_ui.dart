@@ -5,6 +5,7 @@ import 'source_editor2.dart';
 import 'dart:math';
 import 'datapoint.dart';
 import 'dart:ui';
+import 'settings_led2.dart';
 
 double logWidth = 0;
 double logHeight = 0;
@@ -399,6 +400,48 @@ Widget dlGetRadialGaugeByElement(
     }
   }
   return ret;
+}
+
+Widget dlIdiotLights( BuildContext context, double width, double height, bool withLEDs )
+{
+  Datapoint ltDatapoint = DLAppData.appData.getDatapointByLabel("TURNL");
+  Datapoint rtDatapoint = DLAppData.appData.getDatapointByLabel("TURNR");
+  Datapoint hbDatapoint = DLAppData.appData.getDatapointByLabel("LIGHTSHI");
+
+  Widget? ledStrip;
+  Widget? ledWidget;
+
+  if( withLEDs ) {
+    ledStrip = dlLEDStrip(height * 5, height);
+    ledWidget = GestureDetector(
+      behavior: HitTestBehavior.translucent,
+      onLongPress: () {
+        Navigator.push(context, MaterialPageRoute(builder: (context) {
+          return const SettingsLED2();
+        }));
+      },
+      child: ledStrip,
+    );
+  }
+
+  Widget idiotLights = SizedBox(
+    // idiot lights
+      width: width,
+      height: height,
+      child: Row(children: [
+        dlImageToggle(ltDatapoint, height, 'images/IL_LeftTurnOn.png',
+            'images/IL_LeftTurnOff.png'),
+        const SizedBox(width: 5),
+        dlImageToggle(rtDatapoint, height, 'images/IL_RightTurnOn.png',
+            'images/IL_RightTurnOff.png'),
+        const SizedBox(width: 5),
+        dlImageToggle(hbDatapoint, height, 'images/IL_HighBeamOn.png',
+            'images/IL_HighBeamOff.png'),
+        if( withLEDs ) const SizedBox(width: 5),
+        if( withLEDs && ledStrip != null )
+          ledStrip,
+      ]));
+  return idiotLights;
 }
 
 Widget dlLEDStrip( double width, double height )

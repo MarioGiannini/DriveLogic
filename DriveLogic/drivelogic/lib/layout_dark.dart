@@ -122,7 +122,8 @@ Widget buildDarkLayout3(BuildContext context, BoxConstraints constraints) {
   }
   centerColumn = deviceWidth - ( bigDialHeight * 2 );
   mutableHeight = min( bigDialHeight / 3 - mutableGap*2, centerColumn/3 - mutableGap*2);
-  double centerColumnXOffset = (centerColumn - mutableHeight*3 ) / 2;
+  // Honest;y, not sure why the *2 improves centering in the line below
+  double centerColumnXOffset = (centerColumn - ((mutableHeight + mutableGap *2 /*see note above*/  )*3 ));
   double centerColumnYOffset = (bigDialHeight - mutableHeight*3 ) / 2;
   double stripHeight = bigDialHeight / 11;
   double stripWidth = (stripHeight + 2) * 5;
@@ -187,10 +188,16 @@ Widget buildDarkLayout3(BuildContext context, BoxConstraints constraints) {
     child: ledStrip,
   );
 
+  Widget idiotLights = dlIdiotLights( context, stripHeight * 3.3, stripHeight, false);
+
   grid.add( myPosition( bigDialHeight, bigDialHeight, 0, myTopGap, speedWidget));
   grid.add( myPosition( bigDialHeight, bigDialHeight, deviceWidth - bigDialHeight, myTopGap , rpmWidget));
   grid.add( myPosition( bigDialHeight*.55, bigDialHeight*.16, bigDialHeight*.22, myTopGap + bigDialHeight*.8, fuelWidget));
-  grid.add( myPosition( stripWidth, stripHeight, stripLeft, 0, ledWidget));
+  grid.add( myPosition( centerColumn, stripHeight, deviceWidth/2-centerColumn/2, 0,
+      Row( mainAxisAlignment: MainAxisAlignment.center, children:[
+        idiotLights, ledWidget,
+      ]) )
+  );
 
   // MG: Issue 0000841: Implement an Odometer widget
   Datapoint datapointOdometer = DLAppData.appData.getDatapointByElement('ODO');
@@ -211,8 +218,8 @@ Widget buildDarkLayout3(BuildContext context, BoxConstraints constraints) {
     col = i % 3;
     row = (i / 3).floor();
 
-    xOffset = col * mutableHeight;
-    yOffset = row * mutableHeight;
+    xOffset = col * (mutableHeight+mutableGap) - mutableGap;
+    yOffset = row * (mutableHeight+mutableGap);
 
     if( i == 0 ) { // Only the first gets the top left
       corners +=  dlArcCornerTopLeft;
@@ -252,8 +259,8 @@ Widget buildDarkLayout3(BuildContext context, BoxConstraints constraints) {
         child: mutable );
     grid.add(
       myPosition( mutableHeight, mutableHeight,
-          bigDialHeight + colGap*2 + xOffset + mutableGap*col + centerColumnXOffset,
-          myTopGap + stripHeight + yOffset + mutableGap * row  + centerColumnYOffset,
+          bigDialHeight +  xOffset  + centerColumnXOffset,
+          myTopGap + stripHeight + yOffset + centerColumnYOffset,
           widget),
     );
     i++;
